@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f5;
+            background-image: url('https://img.freepik.com/free-vector/flat-design-polygonal-background_23-2148900724.jpg?t=st=1742064732~exp=1742068332~hmac=8c2c8925fd44ce3237a2b4d23190d2655e8dac44d0a32d196df1692336f0be60&w=1380');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Ensures the image stays fixed while scrolling */
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        h1 {
+            text-align: center;
+            color: #ffffff;
+            margin-top: 20px;
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            max-width: 800px;
+            width: 90%;
+            margin: 20px auto;
+            padding-top: 20px;
+        }
+        li {
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+            margin: 15px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        li:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        }
+        .button-container {
+            text-align: center;
+            margin-top: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        .button-container button, .button-container a {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .button-container button:hover, .button-container a:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+        .return-button a {
+            background-color: #3498db;
+        }
+        .return-button a:hover {
+            background-color: #2980b9;
+        }
+        .clear-cart-button button {
+            background-color: #e74c3c;
+        }
+        .clear-cart-button button:hover {
+            background-color: #c0392b;
+        }
+        .empty-cart-message {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #888;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            li {
+                flex-direction: column;
+                text-align: center;
+            }
+            .button-container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Your Cart</h1>
+    <ul>
+        {% for item in cart_items %}
+            <li>
+                <span>{{ item['event_name'] }} (Quantity: {{ item['quantity'] }})</span>
+            </li>
+        {% else %}
+            <li class="empty-cart-message">Your cart is empty.</li>
+        {% endfor %}
+    </ul>
+
+    <div class="button-container">
+        <form id="checkout-form" action="{{ url_for('delete_cart') }}" method="POST">
+            <button type="button" onclick="placeOrder()">Checkout</button>
+        </form>
+        <form class="clear-cart-button" action="{{ url_for('delete_cart') }}" method="POST">
+            <button type="submit">Clear Cart</button>
+        </form>
+        <a class="return-button" href="{{ url_for('home') }}">Return to Main Page</a>
+    </div>
+
+    <script>
+        function placeOrder() {
+            alert("Order Placed!");
+            document.getElementById("checkout-form").submit();  // Clears the cart on checkout
+        }
+    </script>
+</body>
+</html>
