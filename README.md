@@ -41,7 +41,6 @@ pip install -r requirements.txt
  ```bash
 export FLASK_APP=main.py
 export FLASK_ENV=development
-(If using cmd, use set instead of export)
  ```
 
 5. Run the application:
